@@ -1,5 +1,13 @@
 <template>
-  <div></div>
+  <Quiz></Quiz>
 </template>
 
-<script></script>
+<script>
+import Quiz from "@/components/Quiz.vue";
+
+export default {
+  components: {
+    Quiz
+  }
+};
+</script>

@@ -1,11 +1,64 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from "axios";
+
+const instance = axios.create({
+  baseURL: "https://restcountries.eu/rest/v2"
+});
+
+Vue.prototype.$http = instance;
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
+  state: {
+    countries: Object,
+    score: 0,
+    capitals: Object,
+    flags: Object
+  },
+  mutations: {
+    SAVE_COUNTRIES(state, countries) {
+      state.countries = countries;
+    },
+    SAVE_CAPITALS(state, capitals) {
+      state.capitals = capitals;
+    },
+    SAVE_FLAGS(state, flags) {
+      state.flags = flags;
+    }
+  },
+  actions: {
+    getCountries({ commit, dispatch }) {
+      Vue.prototype.$http
+        .get("all")
+        .then(result => {
+          commit("SAVE_COUNTRIES", result.data);
+          dispatch("getCapitals");
+          dispatch("getFlags");
+        })
+        .catch(error => {
+          throw new Error(`API ${error}`);
+        });
+    },
+    getCapitals({ commit }) {
+      let x;
+      let countries = this.state.countries;
+      let capitals = [];
+      for (x in countries) {
+        capitals.push(countries[x].capital);
+      }
+      commit("SAVE_CAPITALS", capitals);
+    },
+    getFlags({ commit }) {
+      let x;
+      let countries = this.state.countries;
+      let flags = [];
+      for (x in countries) {
+        flags.push(countries[x].flag);
+      }
+      commit("SAVE_FLAGS", flags);
+    }
+  },
   modules: {}
 });
