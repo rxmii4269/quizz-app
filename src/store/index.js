@@ -15,7 +15,8 @@ export default new Vuex.Store({
     countries: Object,
     score: 0,
     capitals: Object,
-    flags: Object
+    flags: Object,
+    answers: Object
   },
   mutations: {
     SAVE_COUNTRIES(state, countries) {
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     },
     SAVE_FLAGS(state, flags) {
       state.flags = flags;
+    },
+    GENERATE_ANSWERS(state, answers) {
+      state.answers = answers;
     }
   },
   actions: {
@@ -58,6 +62,26 @@ export default new Vuex.Store({
         flags.push(countries[x].flag);
       }
       commit("SAVE_FLAGS", flags);
+    },
+    getAnswers({ commit }, correctAns) {
+      let answers = [];
+      answers.push({ Ans: correctAns, isCorrect: true });
+      for (var i = 0; i < 3; i++) {
+        var rand = this.state.countries[Math.floor(Math.random() * 250)].name;
+        answers.push({ Ans: rand, isCorrect: false });
+      }
+      function shuffle(a) {
+        var j, x, i;
+        for (i = a.length - 1; i > 0; i--) {
+          j = Math.floor(Math.random() * (i + 1));
+          x = a[i];
+          a[i] = a[j];
+          a[j] = x;
+        }
+        return a;
+      }
+
+      commit("GENERATE_ANSWERS", shuffle(answers));
     }
   },
   modules: {}

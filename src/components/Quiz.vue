@@ -21,11 +21,6 @@ export default {
     Capital
     // Flag
   },
-  computed: {
-    countries() {
-      return this.$store.state.countries;
-    }
-  },
   created() {
     this.$store.dispatch("getCountries");
   }
