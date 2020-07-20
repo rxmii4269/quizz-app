@@ -9,11 +9,11 @@ html,body{
 
 
 body{
-    padding-top: 40px;
    background-image: url("../background.png"); 
    background-size: cover;
    background-position: center center;
    background-attachment: fixed;
+   min-height: 100vh;
 }
 
 
