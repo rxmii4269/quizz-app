@@ -12,56 +12,38 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    countries: Object,
+    countries: [],
     score: 0,
-    capitals: Object,
-    flags: Object,
-    answers: Object
+    answers: [],
+    question: ""
+  },
+  getters: {
+    correctAns: state => {
+      return state.answers.filter(answers => answers.isCorrect);
+    }
   },
   mutations: {
     SAVE_COUNTRIES(state, countries) {
       state.countries = countries;
     },
-    SAVE_CAPITALS(state, capitals) {
-      state.capitals = capitals;
-    },
-    SAVE_FLAGS(state, flags) {
-      state.flags = flags;
-    },
     GENERATE_ANSWERS(state, answers) {
       state.answers = answers;
+    },
+    GENERATE_QUESTION(state, question) {
+      state.question = question;
     }
   },
   actions: {
     getCountries({ commit, dispatch }) {
       Vue.prototype.$http
-        .get("all")
+        .get("all?fields=name;capital;flag")
         .then(result => {
           commit("SAVE_COUNTRIES", result.data);
-          dispatch("getCapitals");
-          dispatch("getFlags");
+          dispatch("generateQuestion");
         })
         .catch(error => {
           throw new Error(`API ${error}`);
         });
-    },
-    getCapitals({ commit }) {
-      let x;
-      let countries = this.state.countries;
-      let capitals = [];
-      for (x in countries) {
-        capitals.push(countries[x].capital);
-      }
-      commit("SAVE_CAPITALS", capitals);
-    },
-    getFlags({ commit }) {
-      let x;
-      let countries = this.state.countries;
-      let flags = [];
-      for (x in countries) {
-        flags.push(countries[x].flag);
-      }
-      commit("SAVE_FLAGS", flags);
     },
     getAnswers({ commit }, correctAns) {
       let answers = [];
@@ -82,6 +64,21 @@ export default new Vuex.Store({
       }
 
       commit("GENERATE_ANSWERS", shuffle(answers));
+    },
+    generateQuestion({ commit, dispatch }) {
+      let countries = this.state.countries;
+      let randNum = Math.floor(Math.random() * countries.length);
+      let randomCapital = countries[randNum].capital;
+      let question = `${randomCapital} is the capital of`;
+      if (typeof randNum !== "undefined") {
+        commit("GENERATE_QUESTION", question);
+
+        countries.forEach(Element => {
+          if (randomCapital === Element.capital) {
+            dispatch("getAnswers", Element.name);
+          }
+        });
+      }
     }
   },
   modules: {}

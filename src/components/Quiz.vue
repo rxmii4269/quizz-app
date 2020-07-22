@@ -21,7 +21,7 @@ export default {
     Capital
     // Flag
   },
-  created() {
+  mounted: function() {
     this.$store.dispatch("getCountries");
   }
 };
