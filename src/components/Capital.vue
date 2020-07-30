@@ -3,50 +3,14 @@
     <p class="font-extrabold text-blue-900 text-lg mr-6">{{ question }}</p>
     <div>
       <p
-        class="border border-solid rounded-lg p-2 pl-3 m-2 mx-0 mb-5 cursor-pointer hover:text-white hover:border-opacity-0"
-        :class="[
-          isCorrect
-            ? 'bg-green-400 text-white border-red-400'
-            : 'text-white hover:bg-orange-500 border-purple-500',
-          isIncorrect
-            ? 'bg-red-400 text-white border-red-400'
-            : 'text-purple-500 text-white hover:bg-orange-500 border-purple-500'
-        ]"
-        @click="[getResponse($event)]"
+        v-for="(answer, index) in answers"
+        :key="index"
+        :class="baseStyles"
+        @click="getResponse($event)"
       >
-        <span class=" pr-4 text-lg font-bold">A</span>
-        {{ answers[0].Ans }}
-        <!-- <CheckCircleOutline class="float-right pt-1" /> -->
-      </p>
+        <span class="pr-4 text-lg font-bold">{{ answerLetters[index] }}</span>
 
-      <p
-        class="border border-solid border-purple-500 text-purple-500 rounded-lg p-2 pl-3 m-2 mx-0 mb-5 cursor-pointer hover:bg-orange-500 hover:text-white hover:border-opacity-0"
-        :class="[
-          isCorrect
-            ? 'bg-green-400 text-white border-red-400'
-            : 'text-white hover:bg-orange-500 border-purple-500',
-          isIncorrect
-            ? 'bg-red-400 text-white border-red-400'
-            : 'text-purple-500 text-white hover:bg-orange-500 border-purple-500'
-        ]"
-        @click="[getResponse($event)]"
-      >
-        <span class="pr-4 text-lg font-bold">B</span>
-        {{ answers[1].Ans }}
-      </p>
-      <p
-        class="border border-solid border-purple-500 text-purple-500 rounded-lg p-2 pl-3 m-2 mx-0 mb-5 cursor-pointer hover:bg-orange-500 hover:text-white hover:border-opacity-0"
-        @click="getResponse"
-      >
-        <span class="pr-4 text-lg font-bold">C</span>
-        {{ answers[2].Ans }}
-      </p>
-      <p
-        class="border border-solid border-purple-500 text-purple-500 rounded-lg p-2 pl-3 m-2 mx-0 mb-5 cursor-pointer hover:bg-orange-500 hover:text-white hover:border-opacity-0"
-        @click="getResponse"
-      >
-        <span class="pr-4 text-lg font-bold">D</span>
-        {{ answers[3].Ans }}
+        {{ answer.Ans }}
       </p>
     </div>
     <div class="flex justify-end">
@@ -75,6 +39,10 @@ export default {
   // },
   data: function() {
     return {
+      baseStyles: {
+        ["border border-solid rounded-lg p-2 pl-3 m-2 mx-0 mb-5 cursor-pointer hover:text-white hover:border-opacity-0 text-purple-500 hover:bg-orange-500 border-purple-500"]: true
+      },
+      answerLetters: ["A", "B", "C", "D"],
       isIncorrect: false,
       isCorrect: false
     };
