@@ -31,9 +31,15 @@ export default new Vuex.Store({
     },
     GENERATE_QUESTION(state, question) {
       state.question = question;
+    },
+    INCREMENT_SCORE(state) {
+      state.score++;
     }
   },
   actions: {
+    incrementScore({ commit }) {
+      commit("INCREMENT_SCORE");
+    },
     getCountries({ commit, dispatch }) {
       Vue.prototype.$http
         .get("all?fields=name;capital;flag")
