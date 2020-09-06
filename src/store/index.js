@@ -67,7 +67,16 @@ export default new Vuex.Store({
       answers.push({ Ans: correctAns, isCorrect: true });
       for (var i = 0; i < 3; i++) {
         var rand = this.state.countries[Math.floor(Math.random() * 250)].name;
-        answers.push({ Ans: rand, isCorrect: false });
+        if (rand !== correctAns) {
+          answers.push({ Ans: rand, isCorrect: false });
+        } else {
+          answers.push({
+            Ans:
+              this.state.countries[Math.floor(Math.random() * 250)].name !==
+              correctAns,
+            isCorrect: false
+          });
+        }
       }
       function shuffle(a) {
         var j, x, i;
