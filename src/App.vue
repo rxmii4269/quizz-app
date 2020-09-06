@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="flex flex-col min-h-screen">
-    <router-view class="mx-auto my-auto p-8" />
+    <router-view class="mx-auto my-auto p-8"> </router-view>
     <Footer></Footer>
   </div>
 </template>
@@ -14,3 +14,7 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+
+</style>

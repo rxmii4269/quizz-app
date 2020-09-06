@@ -15,7 +15,9 @@ export default new Vuex.Store({
     countries: [],
     score: 0,
     answers: [],
-    question: ""
+    question: "",
+    answerLetters: ["A", "B", "C", "D"],
+    flagUrl: ""
   },
   getters: {
     correctAns: state => {
@@ -34,6 +36,9 @@ export default new Vuex.Store({
     },
     INCREMENT_SCORE(state) {
       state.score++;
+    },
+    FLAG_URL(state, flagUrl) {
+      state.flagUrl = flagUrl;
     }
   },
   actions: {
@@ -46,6 +51,7 @@ export default new Vuex.Store({
         .then(result => {
           commit("SAVE_COUNTRIES", result.data);
           dispatch("generateQuestion");
+          dispatch("generateFlagUrl");
         })
         .catch(error => {
           throw new Error(`API ${error}`);
@@ -85,6 +91,13 @@ export default new Vuex.Store({
           }
         });
       }
+    },
+    generateFlagUrl({ commit }) {
+      let countries = this.state.countries;
+      let randNum = Math.floor(Math.random() * countries.length);
+      let randomFlag = countries[randNum].flag;
+
+      commit("FLAG_URL", randomFlag);
     }
   },
   modules: {}
