@@ -88,9 +88,10 @@ export default new Vuex.Store({
       let randomCapital = countries[randNum].capital;
       let randCountry = countries[randNum];
       let question = `${randomCapital} is the capital of`;
-      dispatch("generateFlagUrl", randCountry);
+
       if (typeof randNum !== "undefined") {
         commit("GENERATE_QUESTION", question);
+        dispatch("generateFlagUrl", randCountry);
 
         countries.forEach(Element => {
           if (randomCapital === Element.capital) {
