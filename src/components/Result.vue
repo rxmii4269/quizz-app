@@ -17,6 +17,7 @@
     </p>
     <button
       class="border-2 font-bold text-center text-blue-900 border-blue-900 rounded-lg py-1 px-6 text-sm"
+      @click="tryAgain"
     >
       Try again
     </button>
@@ -27,11 +28,25 @@
 import { mapState } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      gameOver: null
+    };
   },
   computed: mapState({
     score: state => state.score
-  })
+  }),
+  watch: {
+    gameOver: function() {
+      this.$emit("resetGame", this.gameOver);
+    }
+  },
+  methods: {
+    tryAgain() {
+      this.$store.dispatch("resetGame");
+      this.$store.dispatch("generateQuestion");
+      this.gameOver = false;
+    }
+  }
 };
 </script>
 

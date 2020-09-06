@@ -39,11 +39,17 @@ export default new Vuex.Store({
     },
     FLAG_URL(state, flagUrl) {
       state.flagUrl = flagUrl;
+    },
+    RESET_GAME(state) {
+      state.score = 0;
     }
   },
   actions: {
     incrementScore({ commit }) {
       commit("INCREMENT_SCORE");
+    },
+    resetGame({ commit }) {
+      commit("RESET_GAME");
     },
     getCountries({ commit, dispatch }) {
       Vue.prototype.$http
@@ -51,7 +57,6 @@ export default new Vuex.Store({
         .then(result => {
           commit("SAVE_COUNTRIES", result.data);
           dispatch("generateQuestion");
-          dispatch("generateFlagUrl");
         })
         .catch(error => {
           throw new Error(`API ${error}`);
@@ -81,7 +86,9 @@ export default new Vuex.Store({
       let countries = this.state.countries;
       let randNum = Math.floor(Math.random() * countries.length);
       let randomCapital = countries[randNum].capital;
+      let randCountry = countries[randNum];
       let question = `${randomCapital} is the capital of`;
+      dispatch("generateFlagUrl", randCountry);
       if (typeof randNum !== "undefined") {
         commit("GENERATE_QUESTION", question);
 
@@ -92,10 +99,8 @@ export default new Vuex.Store({
         });
       }
     },
-    generateFlagUrl({ commit }) {
-      let countries = this.state.countries;
-      let randNum = Math.floor(Math.random() * countries.length);
-      let randomFlag = countries[randNum].flag;
+    generateFlagUrl({ commit }, randCountry) {
+      let randomFlag = randCountry.flag;
 
       commit("FLAG_URL", randomFlag);
     }

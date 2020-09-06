@@ -1,5 +1,5 @@
 <template>
-  <div class="t">
+  <div>
     <p class="font-extrabold text-blue-900 pb-4 text-base1 mr-6">
       {{ question }}
     </p>
@@ -51,7 +51,6 @@ export default {
       this.pickedAnswer = answer;
       this.correctAnswer = this.$store.getters.correctAns[0].Ans;
       if (answer.Ans === this.correctAnswer) {
-        console.log(this.$store.getters.correctAns);
         this.$store.dispatch("incrementScore");
         this.count = true;
       } else {
