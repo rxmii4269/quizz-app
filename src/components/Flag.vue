@@ -8,7 +8,7 @@
       <p
         v-for="(answer, index) in answers"
         :key="index"
-        class=" text-sm border border-solid rounded-lg p-1 px-18 pl-3 m-2 mx-0 mb-5 cursor-pointer hover:text-white hover:border-opacity-0 text-purple-500 hover:bg-orange-500 border-purple-500"
+        class=" text-sm border border-solid rounded-lg p-1 px-18 pl-3 m-2 mx-0 mb-5 cursor-pointer hover:text-white hover:border-opacity-0 text-purple-500 hover:bg-orange-500 border-purple-500 flex flex-row"
         :class="{
           correct: answer.isCorrect && pickedAnswer,
           incorrect: !answer.isCorrect && pickedAnswer === answer
@@ -18,16 +18,30 @@
         <span class="pr-4 text-lg font-bold">
           {{ answerLetters[index] }}
         </span>
-        {{ answer.Ans }}
+        <span class="flex-grow mt-3px">{{ answer.Ans }}</span>
+        <CheckCircleOutline
+          v-if="answer.isCorrect && pickedAnswer"
+          class="block-0"
+        />
+        <CloseCircleOutline
+          v-if="!answer.isCorrect && pickedAnswer === answer"
+          class="block-0"
+        />
       </p>
     </div>
   </div>
 </template>
 
 <script>
+import CheckCircleOutline from "icons/CheckCircleOutline";
+import CloseCircleOutline from "icons/CloseCircleOutline";
 import { mapState } from "vuex";
 export default {
   name: "Flag",
+  components: {
+    CheckCircleOutline,
+    CloseCircleOutline
+  },
   data: function() {
     return {
       correctAnswer: null,
@@ -67,6 +81,10 @@ export default {
   width: 70px;
 }
 
+.mt-3px {
+  margin-top: 3px;
+}
+
 .correct {
   background: #60bf88;
   border-color: #60bf88;
@@ -83,5 +101,9 @@ export default {
 }
 .incorrect:hover {
   background: #ea8282;
+}
+
+.block-0 > svg {
+  display: unset;
 }
 </style>
