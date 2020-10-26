@@ -10,7 +10,9 @@
         class=" text-sm border border-solid rounded-lg p-1 px-18 pl-3 m-2 mx-0 mb-5 cursor-pointer hover:text-white hover:border-opacity-0 text-purple-500 hover:bg-orange-500 border-purple-500 flex flex-row"
         :class="{
           correct: answer.isCorrect && pickedAnswer,
-          incorrect: !answer.isCorrect && pickedAnswer === answer
+          incorrect: !answer.isCorrect && pickedAnswer === answer,
+          disabled:
+            (!answer.isCorrect || answer.isCorrect) && correctAnswer !== null
         }"
         @click="selectAnswer(answer)"
       >
@@ -72,10 +74,18 @@ export default {
 </script>
 
 <style scoped>
+.disabled {
+  pointer-events: none;
+}
+
 .correct {
   background: #60bf88;
   border-color: #60bf88;
   color: white;
+}
+
+.correct:hover {
+  background: #60bf88;
 }
 
 .mt-3px {
@@ -86,6 +96,10 @@ export default {
   background: #ea8282;
   border-color: #ea8282;
   color: white;
+}
+
+.incorrect:hover {
+  background: #ea8282;
 }
 
 .block-0 > svg {
