@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <h1 class="font-extrabold text-2xl uppercase text-white pb-2">
+    <h1 class="font-extrabold text-3xl uppercase text-white pb-2">
       Country Quiz
     </h1>
     <img
@@ -26,14 +26,14 @@
         <div class="flex justify-end">
           <button
             v-if="count == true"
-            class="rounded-lg bg-orange-500 px-6 py-2 text-white font-extrabold text-xs"
+            class="rounded-lg bg-orange-500 px-6 py-2 text-white font-extrabold text-lg"
             @click="nextQuestion"
           >
             Next
           </button>
           <button
             v-if="count == 'incorrect'"
-            class="rounded-lg bg-orange-500 px-6 py-2 text-white font-extrabold text-xs"
+            class="rounded-lg bg-orange-500 px-6 py-2 text-white font-extrabold text-lg"
             @click="showScore"
           >
             Next

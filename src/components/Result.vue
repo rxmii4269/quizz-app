@@ -1,22 +1,22 @@
 <template>
   <div class="text-center my-4 mx-4">
     <img
-      class="winners"
+      class="winners mb-8"
       src="@/assets/images/undraw_winners_ao2o 2.svg"
       alt=""
     />
     <h1
-      class="capitalize text-3xl text-center mb-1 font-extrabold text-blue-900"
+      class="capitalize text-5xl text-center mb-1 font-extrabold text-blue-900"
     >
       Results
     </h1>
-    <p class="text-blue-900 mb-10">
+    <p class="text-blue-900 text-lg mb-10">
       You got
       <span class="text-green-400 text-3xl font-bold  ">{{ score }}</span>
-      correct answers
+      correct <span v-if="score > 1">answers</span> <span v-else>answer</span>
     </p>
     <button
-      class="border-2 font-bold text-center text-blue-900 border-blue-900 hover:bg-blue-900 hover:text-white rounded-lg py-1 px-6 text-sm"
+      class="border-2 font-bold text-center text-blue-900 border-blue-900 hover:bg-blue-900 hover:text-white rounded-lg py-3 px-10 text-base"
       @click="tryAgain"
     >
       Try again
@@ -53,7 +53,7 @@ export default {
 <style scoped>
 .winners {
   height: 100px;
-  width: 140px;
+  width: 200px;
   display: inline-block;
 }
 </style>
