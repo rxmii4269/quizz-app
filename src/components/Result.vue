@@ -16,7 +16,7 @@
       correct answers
     </p>
     <button
-      class="border-2 font-bold text-center text-blue-900 border-blue-900 rounded-lg py-1 px-6 text-sm"
+      class="border-2 font-bold text-center text-blue-900 border-blue-900 hover:bg-blue-900 hover:text-white rounded-lg py-1 px-6 text-sm"
       @click="tryAgain"
     >
       Try again
