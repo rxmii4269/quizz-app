@@ -67,7 +67,7 @@ export default new Vuex.Store({
       answers.push({ Ans: correctAns, isCorrect: true });
       for (var i = 0; i < 3; i++) {
         var rand = this.state.countries[Math.floor(Math.random() * 250)].name;
-        if (rand !== correctAns) {
+        if (rand !== correctAns && typeof rand !== Boolean) {
           answers.push({ Ans: rand, isCorrect: false });
         } else {
           answers.push({
@@ -95,6 +95,10 @@ export default new Vuex.Store({
       let countries = this.state.countries;
       let randNum = Math.floor(Math.random() * countries.length);
       let randomCapital = countries[randNum].capital;
+      if (randomCapital === "") {
+        randNum = Math.floor(Math.random() * countries.length);
+        randomCapital = countries[randNum].capital;
+      }
       let randCountry = countries[randNum];
       let question = `${randomCapital} is the capital of`;
 
