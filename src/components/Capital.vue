@@ -7,12 +7,28 @@
       <p
         v-for="(answer, index) in answers"
         :key="index"
-        class="text-lg border-2 border-solid rounded-lg p-1 px-18 pl-3 m-2 mx-0 mb-5 cursor-pointer hover:text-white text-purple-500 hover:bg-orange-500 border-purple-500 flex flex-row"
+        class="
+          text-lg
+          border-2 border-solid
+          rounded-lg
+          p-1
+          px-18
+          pl-3
+          m-2
+          mx-0
+          mb-5
+          cursor-pointer
+          hover:text-white
+          text-purple-500
+          hover:bg-orange-500
+          border-purple-500
+          flex flex-row
+        "
         :class="{
           correct: answer.isCorrect && pickedAnswer,
           incorrect: !answer.isCorrect && pickedAnswer === answer,
           disabled:
-            (!answer.isCorrect || answer.isCorrect) && correctAnswer !== null
+            (!answer.isCorrect || answer.isCorrect) && correctAnswer !== null,
         }"
         @click="selectAnswer(answer)"
       >
@@ -41,24 +57,24 @@ export default {
   name: "Capital",
   components: {
     CheckCircleOutline,
-    CloseCircleOutline
+    CloseCircleOutline,
   },
-  data: function() {
+  data: function () {
     return {
       correctAnswer: null,
       pickedAnswer: null,
-      count: false
+      count: false,
     };
   },
   computed: mapState({
-    question: state => state.question,
-    answers: state => state.answers,
-    answerLetters: state => state.answerLetters
+    question: (state) => state.question,
+    answers: (state) => state.answers,
+    answerLetters: (state) => state.answerLetters,
   }),
   watch: {
-    count: function() {
+    count: function () {
       this.$emit("correct", this.count);
-    }
+    },
   },
   methods: {
     selectAnswer(answer) {
@@ -70,8 +86,8 @@ export default {
       } else {
         this.count = "incorrect";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

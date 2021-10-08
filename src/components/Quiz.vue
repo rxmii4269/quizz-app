@@ -26,14 +26,30 @@
         <div class="flex justify-end">
           <button
             v-if="count == true"
-            class="rounded-lg bg-orange-500 px-6 py-2 text-white font-extrabold text-lg"
+            class="
+              rounded-lg
+              bg-orange-500
+              px-6
+              py-2
+              text-white
+              font-extrabold
+              text-lg
+            "
             @click="nextQuestion"
           >
             Next
           </button>
           <button
             v-if="count == 'incorrect'"
-            class="rounded-lg bg-orange-500 px-6 py-2 text-white font-extrabold text-lg"
+            class="
+              rounded-lg
+              bg-orange-500
+              px-6
+              py-2
+              text-white
+              font-extrabold
+              text-lg
+            "
             @click="showScore"
           >
             Next
@@ -53,7 +69,7 @@ export default {
   components: {
     Capital,
     Result,
-    Flag
+    Flag,
   },
   data() {
     return {
@@ -61,11 +77,11 @@ export default {
       flag: 1,
       capital: 0,
       gameOver: false,
-      component: 0
+      component: 0,
     };
   },
 
-  mounted: function() {
+  mounted: function () {
     this.$store.dispatch("getCountries");
   },
   methods: {
@@ -77,17 +93,17 @@ export default {
       this.capital += 1;
       this.count = false;
     },
-    correctValue: function(params) {
+    correctValue: function (params) {
       this.count = params;
     },
     showScore() {
       this.gameOver = true;
       this.count = null;
     },
-    gameOverValue: function(params) {
+    gameOverValue: function (params) {
       this.gameOver = params;
-    }
-  }
+    },
+  },
 };
 </script>
 

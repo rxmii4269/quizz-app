@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://restcountries.eu/rest/v2"
+  baseURL: "https://restcountries.com/v3.1/",
 });
 
 Vue.prototype.$http = instance;
@@ -17,12 +17,12 @@ export default new Vuex.Store({
     answers: [],
     question: "",
     answerLetters: ["A", "B", "C", "D"],
-    flagUrl: ""
+    flagUrl: "",
   },
   getters: {
-    correctAns: state => {
-      return state.answers.filter(answers => answers.isCorrect);
-    }
+    correctAns: (state) => {
+      return state.answers.filter((answers) => answers.isCorrect);
+    },
   },
   mutations: {
     SAVE_COUNTRIES(state, countries) {
@@ -42,7 +42,7 @@ export default new Vuex.Store({
     },
     RESET_GAME(state) {
       state.score = 0;
-    }
+    },
   },
   actions: {
     incrementScore({ commit }) {
@@ -53,28 +53,35 @@ export default new Vuex.Store({
     },
     getCountries({ commit, dispatch }) {
       Vue.prototype.$http
-        .get("all?fields=name;capital;flag")
-        .then(result => {
+        .get("all")
+        .then((result) => {
           commit("SAVE_COUNTRIES", result.data);
           dispatch("generateQuestion");
         })
-        .catch(error => {
+        .catch((error) => {
           throw new Error(`API ${error}`);
         });
     },
     getAnswers({ commit }, correctAns) {
       let answers = [];
-      answers.push({ Ans: correctAns, isCorrect: true });
+      answers.push({ Ans: correctAns.common, isCorrect: true });
       for (var i = 0; i < 3; i++) {
-        var rand = this.state.countries[Math.floor(Math.random() * 250)].name;
-        if (rand !== correctAns && typeof rand !== Boolean) {
-          answers.push({ Ans: rand, isCorrect: false });
+        let rand = this.state.countries[Math.floor(Math.random() * 250)].name;
+        if (rand.common !== correctAns.common && typeof rand !== Boolean) {
+          answers.push({ Ans: rand.common, isCorrect: false });
         } else {
+          console.log(
+            this.state.countries[Math.floor(Math.random() * 250)].name.common
+          );
+          const country =
+            this.state.countries[Math.floor(Math.random() * 250)].name.common;
           answers.push({
             Ans:
-              this.state.countries[Math.floor(Math.random() * 250)].name !==
-              correctAns,
-            isCorrect: false
+              country !== correctAns.common
+                ? country
+                : this.state.countries[Math.floor(Math.random() * 250)].name
+                    .common,
+            isCorrect: false,
           });
         }
       }
@@ -106,7 +113,7 @@ export default new Vuex.Store({
         commit("GENERATE_QUESTION", question);
         dispatch("generateFlagUrl", randCountry);
 
-        countries.forEach(Element => {
+        countries.forEach((Element) => {
           if (randomCapital === Element.capital) {
             dispatch("getAnswers", Element.name);
           }
@@ -114,10 +121,9 @@ export default new Vuex.Store({
       }
     },
     generateFlagUrl({ commit }, randCountry) {
-      let randomFlag = randCountry.flag;
-
+      let randomFlag = randCountry.flags.svg;
       commit("FLAG_URL", randomFlag);
-    }
+    },
   },
-  modules: {}
+  modules: {},
 });
