@@ -54,7 +54,7 @@ import CheckCircleOutline from "icons/CheckCircleOutline";
 import CloseCircleOutline from "icons/CloseCircleOutline";
 import { mapState } from "vuex";
 export default {
-  name: "Capital",
+  name: "CapitalQuestion",
   components: {
     CheckCircleOutline,
     CloseCircleOutline,

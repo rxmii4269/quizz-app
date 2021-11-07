@@ -11,18 +11,21 @@
     />
     <div class="round bg-gray-200 max-w-sm overflow-hidden px-12">
       <div class="py-8 pt-8">
-        <Capital
+        <CapitalQuestion
           v-if="!gameOver && component == 0"
           :key="capital"
           @correct="correctValue"
-        ></Capital>
-        <Flag
+        ></CapitalQuestion>
+        <FlagQuestion
           v-if="!gameOver && component == 1"
           :key="flag"
           @correct="correctValue"
-        ></Flag>
+        ></FlagQuestion>
 
-        <Result v-if="gameOver" @resetGame="gameOverValue"></Result>
+        <ResultContainer
+          v-if="gameOver"
+          @resetGame="gameOverValue"
+        ></ResultContainer>
         <div class="flex justify-end">
           <button
             v-if="count == true"
@@ -61,15 +64,15 @@
 </template>
 
 <script>
-import Capital from "@/components/Capital.vue";
-import Flag from "@/components/Flag.vue";
-import Result from "@/components/Result.vue";
+import CapitalQuestion from "@/components/Capital.vue";
+import FlagQuestion from "@/components/Flag.vue";
+import ResultContainer from "@/components/Result.vue";
 export default {
-  name: "Quiz",
+  name: "QuizContainer",
   components: {
-    Capital,
-    Result,
-    Flag,
+    CapitalQuestion,
+    ResultContainer,
+    FlagQuestion,
   },
   data() {
     return {

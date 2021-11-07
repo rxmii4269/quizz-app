@@ -37,6 +37,7 @@
 <script>
 import { mapState } from "vuex";
 export default {
+  name: "ResultContainer",
   data() {
     return {
       gameOver: null,

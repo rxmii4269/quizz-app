@@ -1,16 +1,16 @@
 <template>
   <div id="app" class="flex flex-col min-h-screen">
     <router-view class="mx-auto my-auto p-8"> </router-view>
-    <Footer></Footer>
+    <FooterComponent></FooterComponent>
   </div>
 </template>
 
 <script>
-import Footer from "@/components/Footer.vue";
+import FooterComponent from "@/components/Footer.vue";
 
 export default {
   components: {
-    Footer,
+    FooterComponent,
   },
 };
 </script>

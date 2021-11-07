@@ -3,3 +3,8 @@
     Romaine @ DevChallenges.io
   </footer>
 </template>
+<script>
+export default {
+  name: "FooterComponent",
+};
+</script>
