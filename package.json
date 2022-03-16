@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "node-sass": "^7.0.0",
-    "prettier": "^2.4.1",
+    "prettier": "^2.6.0",
     "sass-loader": "^12.3.0",
     "vue-template-compiler": "^2.6.14"
   }
